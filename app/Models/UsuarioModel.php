@@ -30,7 +30,13 @@ class UsuarioModel
     {
         $sql = "INSERT INTO usuarios (nome, senha) VALUES (:nome, :senha)";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute(['nome' => $dados['nome'], 'senha' => password_hash($dados['senha'], PASSWORD_DEFAULT)]);
+
+        //se você estiver usando o PASSWORD_DEFAULT (Bcrypt) atualmente, 
+        //definir como VARCHAR(60) vai funcionar perfeitamente e o erro vai sumir, 
+        //pois o hash do Bcrypt tem exatamente 60 caracteres.
+
+        //$stmt->execute(['nome' => $dados['nome'], 'senha' => password_hash($dados['senha'], PASSWORD_DEFAULT)]);
+        $stmt->execute(['nome' => $dados['nome'], 'senha' =>$dados['senha']]);
         return $this->db->lastInsertId();
     }
 

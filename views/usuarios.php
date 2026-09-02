@@ -45,7 +45,13 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
+        
+        input[type=password] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
         button {
             padding: 9px 18px;
             background-color: #28a745;
@@ -114,11 +120,7 @@
             </div>
             <div>
                 <label for="senha">Senha</label>
-                <input
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    required>
+                <input type="password" id="senha" name="senha" required>
             </div>
             <button type="submit">Salvar</button>
             <?php if ($usuarioEditando): ?>
