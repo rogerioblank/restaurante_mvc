@@ -45,13 +45,13 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        
-/*         input[type=password] {
+
+        /*         input[type=password] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         } */
-        
+
         button {
             padding: 9px 18px;
             background-color: #28a745;
@@ -99,6 +99,10 @@
         .btn-apagar {
             background-color: #d9534f;
         }
+
+        .btn-cancelar {
+            background-color: #b73333;
+        }
     </style>
 </head>
 
@@ -124,7 +128,7 @@
             </div>
             <button type="submit">Salvar</button>
             <?php if ($usuarioEditando): ?>
-                <a href="index.php">Cancelar</a>
+                <a class="btn btn-cancelar" href="index.php">Cancelar</a>
             <?php endif; ?>
         </form>
 
