@@ -1,4 +1,6 @@
 <?php
+// LOCAL: app/Models/UsuarioModel.php
+
 class UsuarioModel
 {
     private $db;
@@ -8,37 +10,48 @@ class UsuarioModel
         $this->db = $conexao;
     }
 
+    public function buscarTodos()
+    {
+        $sql = "SELECT * FROM usuarios";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function buscarPorId($id)
     {
-        $sql = "SELECT * FROM usuarios where id = ?";
+        $sql = "SELECT * FROM usuarios WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$id]);
-
+        $stmt->execute(['id' => $id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function inserir($nome, $senha)
+    public function criar($dados)
     {
-        $sql = "INSERT INTO usuarios (nome, senha) values (?,?)";
+        $sql = "INSERT INTO usuarios (nome, senha) VALUES (:nome, :senha)";
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([$nome, $senha]);
-
+        $stmt->execute(['nome' => $dados['nome'], 'senha' => password_hash($dados['senha'], PASSWORD_DEFAULT)]);
         return $this->db->lastInsertId();
     }
 
-    public function atualizar($id, $nome, $senha)
-    {
-        $sql = "UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?";
+    /* public function criar($dados) {
+        $sql = "INSERT INTO usuarios (nome) VALUES (:nome)";
         $stmt = $this->db->prepare($sql);
+        $stmt->execute(['nome' => $dados['nome']]);
+        return $this->db->lastInsertId();
+    }*/
 
-        return $stmt->execute([$nome, $senha, $id]);
+    public function atualizar($id, $dados)
+    {
+        $sql = "UPDATE usuarios SET nome = :nome WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['nome' => $dados['nome'], 'id' => $id]);
     }
 
-    public function deletar($id, $nome)
+    public function excluir($id)
     {
-        $sql = "DELETE FROM usuarios WHERE id = ? and nome = ?";
+        $sql = "DELETE FROM usuarios WHERE id = :id";
         $stmt = $this->db->prepare($sql);
-
-        return $stmt->execute([$id, $nome]);
+        return $stmt->execute(['id' => $id]);
     }
 }
