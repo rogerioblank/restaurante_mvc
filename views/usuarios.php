@@ -40,17 +40,17 @@
             margin-bottom: 5px;
         }
 
-        input[type=text] {
+        input {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
         
-        input[type=password] {
+/*         input[type=password] {
             padding: 8px;
             border: 1px solid #ccc;
             border-radius: 4px;
-        }
+        } */
         
         button {
             padding: 9px 18px;
